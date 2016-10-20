@@ -1,15 +1,3 @@
----
-title: "Descriptive statistics"
-author: "Biel"
-date: "12 de octubre de 2016"
-output: word_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r names, include=FALSE}
 #set working directory to whatever you need
 setwd("D:/Documents/Feina/FIB/4B/MD")
 
@@ -51,30 +39,3 @@ dd <- transform(dd, Walc = as.factor(Walc))
 levels(dd$Walc) <- c("very low", "low","sufficient","high","very high")
 dd <- transform(dd, health = as.factor(health))
 levels(dd$health) <- c("very bad", "bad","sufficient","good","very good")
-```
-
-```{r variables, results='asis', echo=FALSE}
-listOfColors<-rainbow(14)
-par(ask=TRUE)
-
-
-for(k in 1:K){
-  if (is.factor(dd[,k])){ 
-    frecs<-table(dd[,k], useNA="ifany")
-    proportions<-frecs/n*100
-    #ojo, decidir si calcular porcentages con o sin missing values
-    pie(frecs, cex=0.6, main=paste("Pie of", names(dd)[k]))
-    barplot(frecs, las=3, cex.names=0.7, main=paste("Barplot of", names(dd)[k]), col=listOfColors)
-    print(frecs)
-    print(proportions)
-   }else{
-    hist(dd[,k], main=paste("Histogram of", names(dd)[k]))
-    boxplot(dd[,k], horizontal=TRUE, main=paste("Boxplot of", names(dd)[k]))
-    print(summary(dd[,k]))
-    print(paste("sd: ", sd(dd[,k])))
-    print(paste("vc: ", sd(dd[,k])/mean(dd[,k])))
-   }
-}
-
-par(ask=FALSE)
-```
